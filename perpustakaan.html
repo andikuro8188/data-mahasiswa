@@ -1,0 +1,317 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Mahasiswa</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        h1,
+        h2 {
+            color: #2457a7;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2457a7;
+            color: white;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 95%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 18px;
+            background-color: #2457a7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #173d7a;
+        }
+
+        .hapus {
+            background-color: #dc3545;
+            padding: 7px 10px;
+        }
+
+        .hapus:hover {
+            background-color: #a71d2a;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Profil Mahasiswa</h1>
+
+        <img src="gambar/perpustakaan.jpg" alt="Foto Profil Mahasiswa">
+
+        <h2>Identitas Mahasiswa</h2>
+        <p><strong>Nama:</strong> Nama Mahasiswa</p>
+        <p><strong>NIM:</strong> 123456789</p>
+        <p><strong>Program Studi:</strong> Sistem Informasi</p>
+
+        <h2>Tentang Saya</h2>
+        <p>
+            Saya adalah mahasiswa yang tertarik pada teknologi informasi,
+            pemrograman web, dan pengembangan aplikasi.
+        </p>
+
+        <h2>Hobi</h2>
+        <ul>
+            <li>Mendengarkan musik</li>
+            <li>Belajar pemrograman</li>
+            <li>Membaca buku</li>
+            <li>Mengeksplorasi teknologi</li>
+        </ul>
+
+        <h2>Website Kampus</h2>
+        <p>
+            <a href="https://www.example.com" target="_blank">
+                Website Resmi Kampus
+            </a>
+        </p>
+
+        <h2>Daftar Mata Kuliah</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Kode</th>
+                    <th>Mata Kuliah</th>
+                    <th>SKS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>SI101</td>
+                    <td>Pemrograman Web</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>SI102</td>
+                    <td>Basis Data</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>SI103</td>
+                    <td>Analisis Sistem</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>SI104</td>
+                    <td>Jaringan Komputer</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>SI105</td>
+                    <td>Interaksi Manusia dan Komputer</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Form Data Mahasiswa</h2>
+
+        <form id="formMahasiswa">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label><br>
+                <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" placeholder="Masukkan alamat email" required>
+            </div>
+
+            <div class="form-group">
+                <p>Jenis Kelamin:</p>
+
+                <input type="radio" id="laki" name="jenisKelamin" value="Laki-laki" required>
+                <label for="laki">Laki-laki</label>
+
+                <input type="radio" id="perempuan" name="jenisKelamin" value="Perempuan">
+                <label for="perempuan">Perempuan</label>
+            </div>
+
+            <button type="submit">Kirim</button>
+        </form>
+
+        <h2>Data Mahasiswa yang Dimasukkan</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabelMahasiswa">
+                <tr id="pesanKosong">
+                    <td colspan="5" style="text-align:center;">
+                        Belum ada data mahasiswa.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        const form = document.getElementById("formMahasiswa");
+        const tabel = document.getElementById("tabelMahasiswa");
+
+        let nomor = 0;
+
+        form.addEventListener("submit", function (event) {
+            // Mencegah halaman dimuat ulang
+            event.preventDefault();
+
+            // Mengambil data dari form
+            const nama = document.getElementById("nama").value.trim();
+            const email = document.getElementById("email").value.trim();
+
+            const pilihanGender = document.querySelector(
+                'input[name="jenisKelamin"]:checked'
+            );
+
+            if (!nama || !email || !pilihanGender) {
+                alert("Silakan lengkapi semua data!");
+                return;
+            }
+
+            const gender = pilihanGender.value;
+
+            // Menghapus pesan jika tabel masih kosong
+            const pesan = document.getElementById("pesanKosong");
+            if (pesan) {
+                pesan.remove();
+            }
+
+            // Membuat baris tabel baru
+            nomor++;
+
+            const baris = document.createElement("tr");
+
+            const data = [nomor, nama, email, gender];
+
+            data.forEach(function (nilai) {
+                const kolom = document.createElement("td");
+                kolom.textContent = nilai;
+                baris.appendChild(kolom);
+            });
+
+            // Membuat tombol hapus
+            const kolomAksi = document.createElement("td");
+            const tombolHapus = document.createElement("button");
+
+            tombolHapus.textContent = "Hapus";
+            tombolHapus.type = "button";
+            tombolHapus.className = "hapus";
+
+            tombolHapus.addEventListener("click", function () {
+                baris.remove();
+
+                if (tabel.querySelectorAll("tr").length === 0) {
+                    const barisKosong = document.createElement("tr");
+                    barisKosong.id = "pesanKosong";
+
+                    const kolomKosong = document.createElement("td");
+                    kolomKosong.colSpan = 5;
+                    kolomKosong.style.textAlign = "center";
+                    kolomKosong.textContent = "Belum ada data mahasiswa.";
+
+                    barisKosong.appendChild(kolomKosong);
+                    tabel.appendChild(barisKosong);
+                }
+
+                // Memperbarui nomor setelah data dihapus
+                perbaruiNomor();
+            });
+
+            kolomAksi.appendChild(tombolHapus);
+            baris.appendChild(kolomAksi);
+
+            // Menampilkan data pada tabel
+            tabel.appendChild(baris);
+
+            // Mengosongkan form setelah berhasil ditambahkan
+            form.reset();
+        });
+
+        function perbaruiNomor() {
+            const barisData = tabel.querySelectorAll("tr:not(#pesanKosong)");
+
+            nomor = 0;
+
+            barisData.forEach(function (baris) {
+                nomor++;
+                baris.cells[0].textContent = nomor;
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+```
